@@ -1,4 +1,3 @@
 
-QCNN_DQN/DeepQuaternionNetworks/.idea
-
-QCNN_DQN/DeepQuaternionNetworks/__pycache__
+*/__pycache__/*
+*/.idea/*
