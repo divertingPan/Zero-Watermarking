@@ -85,7 +85,7 @@ end
  % 下采样层（S1，S2）矩阵尺寸降为原来的1/4。
  
 CNN_Graph = [
-    imageInputLayer([64 64 1],"Name","imageinput")
+    imageInputLayer([64 64 1],"Name","imageinput","Normalization","zerocenter")
     convolution2dLayer([5 5],18,"Name","conv_1")
     averagePooling2dLayer([2 2],"Name","avgpool2d_1","Padding","same","Stride",[2 2])
     convolution2dLayer([5 5],36,"Name","conv_2")
@@ -106,7 +106,7 @@ opts = trainingOptions('sgdm', ...
         'LearnRateDropPeriod', 4, ...
         'L2Regularization', 0.0005, ...
         'MaxEpochs', 100, ...
-        'MiniBatchSize', 128, ...
+        'MiniBatchSize', 36, ...
         'Verbose', true,...
         'Plots','training-progress');
 
@@ -120,7 +120,7 @@ disp('weights saved');
  % 得到的G为用于构造零鲁棒水印的信息矩阵。
 
 F = activations(Net, trainingImages, 5);
-size(F); % [X, Y, num of filter in C2, num of image]
+% size(F); % [X, Y, num of filter in C2, num of image]
 
 F = reshape(F, [], 36);
 
