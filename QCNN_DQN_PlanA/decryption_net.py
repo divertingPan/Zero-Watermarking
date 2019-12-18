@@ -48,6 +48,7 @@ F = AveragePooling2D(pool_size=(2, 2), strides=(2, 2), padding="same")(O)
 
 O = Flatten()(F)
 O = Dense(128)(O)
+O = Dense(64)(O)
 O = Dense(num_classes, activation='softmax')(O)
 
 model = Model(R, O)

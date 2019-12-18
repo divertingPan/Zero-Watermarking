@@ -6,11 +6,11 @@ from quaternion_layers.conv import QuaternionConv2D
 from keras.preprocessing.image import ImageDataGenerator
 import scipy.io as scio
 import numpy as np
- 
 
-batch_size = 36
+
+batch_size = 128
 num_classes = 36
-epochs = 50
+epochs = 5000
 
 def learnVectorBlock(I):
     """Learn initial vector component for input."""
@@ -70,11 +70,12 @@ F = AveragePooling2D(pool_size=(2, 2), strides=(2, 2), padding="same")(O)
 
 O = Flatten()(F)
 O = Dense(128)(O)
+O = Dense(64)(O)
 O = Dense(num_classes, activation='softmax')(O)
 
 model = Model(R, O)
 model.compile(loss=keras.losses.categorical_crossentropy,
-              optimizer=keras.optimizers.SGD(lr=0.001, decay=0.9),
+              optimizer=keras.optimizers.Adam(),
               metrics=['accuracy'])
 
 model.fit_generator(datagen.flow(x_train, y_train, batch_size=batch_size),
