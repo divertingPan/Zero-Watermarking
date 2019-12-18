@@ -30,11 +30,11 @@ legend('NC (robust seal)', 'TAF (robust seal)', 'NC (semifragile seal)', 'TAF (s
 saveas(gcf, 'test/gamma', 'svg');
 
 % % 生成示例图
-% tmp = imadjust(I_original, [], [], 3.5);
-% imwrite(tmp, ['test/lena_gamma', num2str(3.5), '.bmp']);
+% tmp = imadjust(I_original, [], [], 0.5);
+% imwrite(tmp, ['test/lena_gamma', num2str(0.5), '.bmp']);
 % [robust_seal, semifragile_seal] = dec_func(tmp);
-% imwrite(robust_seal, ['test/robust_seal_gamma', num2str(3.5), '.bmp']);
-% imwrite(semifragile_seal, ['test/semifragile_seal_gamma', num2str(3.5), '.bmp']);
+% imwrite(robust_seal, ['test/robust_seal_gamma', num2str(0.5), '.bmp']);
+% imwrite(semifragile_seal, ['test/semifragile_seal_gamma', num2str(0.5), '.bmp']);
 
 
 %% 旋转
@@ -63,11 +63,11 @@ legend('NC (robust seal)', 'TAF (robust seal)', 'NC (semifragile seal)', 'TAF (s
 saveas(gcf, 'test/rotate', 'svg');
 
 % % 生成示例图
-% tmp = imrotate(I_original, 0.3, 'bilinear', 'crop');
-% imwrite(tmp, ['test/lena_rotate', num2str(0.3), '.bmp']);
+% tmp = imrotate(I_original, 30, 'bilinear', 'crop');
+% imwrite(tmp, ['test/lena_rotate', num2str(30), '.bmp']);
 % [robust_seal, semifragile_seal] = dec_func(tmp);
-% imwrite(robust_seal, ['test/robust_seal_rotate', num2str(0.3), '.bmp']);
-% imwrite(semifragile_seal, ['test/semifragile_seal_rotate', num2str(0.3), '.bmp']);
+% imwrite(robust_seal, ['test/robust_seal_rotate', num2str(30), '.bmp']);
+% imwrite(semifragile_seal, ['test/semifragile_seal_rotate', num2str(30), '.bmp']);
 
 
 %% 高斯噪声
@@ -96,11 +96,11 @@ legend('NC (robust seal)', 'TAF (robust seal)', 'NC (semifragile seal)', 'TAF (s
 saveas(gcf, 'test/gaussian', 'svg');
 
 % % 生成示例图
-% tmp = imnoise(I_original, 'gaussian', 0, 0.03);
-% imwrite(tmp, ['test/lena_gaussian', num2str(0.03), '.bmp']);
+% tmp = imnoise(I_original, 'gaussian', 0, 3);
+% imwrite(tmp, ['test/lena_gaussian', num2str(3), '.bmp']);
 % [robust_seal, semifragile_seal] = dec_func(tmp);
-% imwrite(robust_seal, ['test/robust_seal_gaussian', num2str(0.03), '.bmp']);
-% imwrite(semifragile_seal, ['test/semifragile_seal_gaussian', num2str(0.03), '.bmp']);
+% imwrite(robust_seal, ['test/robust_seal_gaussian', num2str(3), '.bmp']);
+% imwrite(semifragile_seal, ['test/semifragile_seal_gaussian', num2str(3), '.bmp']);
 
 
 %% 椒盐噪声
@@ -129,11 +129,11 @@ legend('NC (robust seal)', 'TAF (robust seal)', 'NC (semifragile seal)', 'TAF (s
 saveas(gcf, 'test/saltpepper', 'svg');
 
 % % 生成示例图
-% tmp = imnoise(I_original, 'salt & pepper', 0.3);
-% imwrite(tmp, ['test/lena_saltpepper', num2str(0.3), '.bmp']);
+% tmp = imnoise(I_original, 'salt & pepper', 0.03);
+% imwrite(tmp, ['test/lena_saltpepper', num2str(0.03), '.bmp']);
 % [robust_seal, semifragile_seal] = dec_func(tmp);
-% imwrite(robust_seal, ['test/robust_seal_saltpepper', num2str(0.3), '.bmp']);
-% imwrite(semifragile_seal, ['test/semifragile_seal_saltpepper', num2str(0.3), '.bmp']);
+% imwrite(robust_seal, ['test/robust_seal_saltpepper', num2str(0.03), '.bmp']);
+% imwrite(semifragile_seal, ['test/semifragile_seal_saltpepper', num2str(0.03), '.bmp']);
 
 
 %% 中值滤波
@@ -170,12 +170,12 @@ saveas(gcf, 'test/medfilt', 'svg');
 
 % % 生成示例图
 % for i = 1:3
-%     tmp(:,:,i) = medfilt2(I_original(:,:,i), [13, 13]);
+%     tmp(:,:,i) = medfilt2(I_original(:,:,i), [3, 3]);
 % end
-% imwrite(tmp, ['test/lena_medfilt', num2str(13), '.bmp']);
+% imwrite(tmp, ['test/lena_medfilt', num2str(3), '.bmp']);
 % [robust_seal, semifragile_seal] = dec_func(tmp);
-% imwrite(robust_seal, ['test/robust_seal_medfilt', num2str(13), '.bmp']);
-% imwrite(semifragile_seal, ['test/semifragile_seal_medfilt', num2str(13), '.bmp']);
+% imwrite(robust_seal, ['test/robust_seal_medfilt', num2str(3), '.bmp']);
+% imwrite(semifragile_seal, ['test/semifragile_seal_medfilt', num2str(3), '.bmp']);
 
 
 %% JPEG压缩
@@ -205,12 +205,12 @@ legend('NC (robust seal)', 'TAF (robust seal)', 'NC (semifragile seal)', 'TAF (s
 saveas(gcf, 'test/compressed', 'svg');
 
 % % 生成示例图
-% imwrite(I_original, ['test/lena_compressed_tmp', '.jpg'], 'Quality', 90);
+% imwrite(I_original, ['test/lena_compressed_tmp', '.jpg'], 'Quality', 10);
 % tmp = imread(['test/lena_compressed_tmp', '.jpg']);
-% imwrite(tmp, ['test/lena_compressed', num2str(90), '.bmp']);
+% imwrite(tmp, ['test/lena_compressed', num2str(10), '.bmp']);
 % [robust_seal, semifragile_seal] = dec_func(tmp);
-% imwrite(robust_seal, ['test/robust_seal_compressed', num2str(90), '.bmp']);
-% imwrite(semifragile_seal, ['test/semifragile_seal_compressed', num2str(90), '.bmp']);
+% imwrite(robust_seal, ['test/robust_seal_compressed', num2str(10), '.bmp']);
+% imwrite(semifragile_seal, ['test/semifragile_seal_compressed', num2str(10), '.bmp']);
 
 
 %% 拼贴1
@@ -250,7 +250,7 @@ legend('NC (robust seal)', 'TAF (robust seal)', 'NC (semifragile seal)', 'TAF (s
 saveas(gcf, 'test/paste1', 'svg');
 
 % % 生成示例图
-% t = 45;
+% t = 10;
 % tmp = I_original;
 % tmp2 = tmp(1:w/50*t, h/2+1:h, :);
 % tmp(1:w/50*t, h/2+1:h, :) = tmp(1:w/50*t, 1:h/2, :);
@@ -297,7 +297,7 @@ legend('NC (robust seal)', 'TAF (robust seal)', 'NC (semifragile seal)', 'TAF (s
 saveas(gcf, 'test/paste2', 'svg');
 
 % % 生成示例图
-% t = 20;
+% t = 45;
 % tmp = I_original;
 % tmp(1:w/50*t, :, :) = I_source(1:w/50*t, :, :);
 % imwrite(tmp, ['test/lena_paste2_', num2str(t*2), '.bmp']);
@@ -333,14 +333,14 @@ legend('NC (robust seal)', 'TAF (robust seal)', 'NC (semifragile seal)', 'TAF (s
 saveas(gcf, 'test/shear', 'svg');
 
 % % 生成示例图
-% tform = affine2d([1 0 0; 0.9 1 0; 0 0 1]);
+% tform = affine2d([1 0 0; 0.6 1 0; 0 0 1]);
 % J = imwarp(I_original, tform, 'cubic');
 % s = size(J);
 % tmp = imcrop(J, [round(s(2)/2) - 256, 1, 511, 511]);
-% imwrite(tmp, ['test/lena_shear', num2str(0.9), '.bmp']);
+% imwrite(tmp, ['test/lena_shear', num2str(0.6), '.bmp']);
 % [robust_seal, semifragile_seal] = dec_func(tmp);
-% imwrite(robust_seal, ['test/robust_seal_shear', num2str(0.9), '.bmp']);
-% imwrite(semifragile_seal, ['test/semifragile_shear', num2str(0.9), '.bmp']);
+% imwrite(robust_seal, ['test/robust_seal_shear', num2str(0.6), '.bmp']);
+% imwrite(semifragile_seal, ['test/semifragile_shear', num2str(0.6), '.bmp']);
 
 
 %% 其他测试

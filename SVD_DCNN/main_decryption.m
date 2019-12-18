@@ -53,7 +53,7 @@ load('encryption/net.mat');
 %% 构造用于提取鲁棒水印图像的信息矩阵。
 
 F = activations(Net, trainingImages, 5);
-size(F); % [X, Y, num of filter in C2, num of image]
+% size(F); % [X, Y, num of filter in C2, num of image]
 
 F = reshape(F, [], 36);
 
