@@ -38,6 +38,7 @@ else:
 x_train = x_train.astype('float32')
 x_test = x_test.astype('float32')
 print('x_train shape:', x_train.shape)
+print('y_train shape:', y_train.shape)
 print(x_train.shape[0], 'train samples')
 print(x_test.shape[0], 'test samples')
 
