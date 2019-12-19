@@ -10,7 +10,7 @@ import numpy as np
 
 batch_size = 128
 num_classes = 36
-epochs = 5000
+epochs = 1000
 
 def learnVectorBlock(I):
     """Learn initial vector component for input."""
