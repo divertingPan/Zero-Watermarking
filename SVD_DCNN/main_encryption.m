@@ -90,8 +90,9 @@ CNN_Graph = [
     averagePooling2dLayer([2 2],"Name","avgpool2d_1","Padding","same","Stride",[2 2])
     convolution2dLayer([5 5],36,"Name","conv_2")
     averagePooling2dLayer([2 2],"Name","avgpool2d_2","Padding","same","Stride",[2 2])
-    fullyConnectedLayer(128,"Name","fc")
-    fullyConnectedLayer(36,"Name","fc_2")
+    fullyConnectedLayer(128,"Name","fc_1")
+    fullyConnectedLayer(64,"Name","fc_2")
+    fullyConnectedLayer(36,"Name","fc_3")
     softmaxLayer("Name","softmax")
     classificationLayer("Name","classoutput")];
 
@@ -99,16 +100,9 @@ CNN_Graph = [
 trainingImages = reshape(USV, X_size(1), X_size(2), 1, []);
 trainingLabels = categorical(T);
 
-opts = trainingOptions('sgdm', ...
-        'Momentum', 0.9, ...
-        'InitialLearnRate', 0.001, ...
-        'LearnRateSchedule', 'piecewise', ...
-        'LearnRateDropFactor', 0.99, ...
-        'LearnRateDropPeriod', 4, ...
-        'L2Regularization', 0.0005, ...
+opts = trainingOptions('adam', ...
         'MaxEpochs', 1000, ...
         'MiniBatchSize', 36, ...
-        'Verbose', true,...
         'Plots','training-progress');
 
 Net = trainNetwork(trainingImages, trainingLabels, CNN_Graph, opts);
@@ -125,10 +119,24 @@ F = activations(Net, trainingImages, 5);
 
 F = reshape(F, [], 36);
 
+% for i = 1:36
+%     for j = 1:36
+%         G(i, j) = sum(F((i-1)*100+(1:100), j))/100;
+%         if F(i*50, j) > G(i, j)
+%             G(i, j) = 1;
+%         else
+%             G(i, j) = 0;
+%         end
+%     end
+% end
+
+for j = 1:36
+    F_avg(j) = mean(F(1:100, j));
+end
+
 for i = 1:36
     for j = 1:36
-        G(i, j) = sum(F((i-1)*100+(1:100), j))/100;
-        if F(i*50, j) > G(i, j)
+        if F(50, j) > F_avg(i)
             G(i, j) = 1;
         else
             G(i, j) = 0;

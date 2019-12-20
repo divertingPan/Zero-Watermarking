@@ -345,10 +345,10 @@ saveas(gcf, 'test/shear', 'svg');
 
 %% ÆäËû²âÊÔ
 
-% I = imread('img/peppers.bmp');
-% [robust_seal, semifragile_seal] = dec_func(I);
-
-I = imread('img/lake.bmp');
+I = imread('img/peppers.bmp');
 [robust_seal, semifragile_seal] = dec_func(I);
+
+% I = imread('img/lake.bmp');
+% [robust_seal, semifragile_seal] = dec_func(I);
 subplot(1, 2, 1);imshow(robust_seal);
 subplot(1, 2, 2);imshow(semifragile_seal);
