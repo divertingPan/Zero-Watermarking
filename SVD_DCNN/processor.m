@@ -60,11 +60,11 @@ plot(x, TAF_f, '-.');hold on;
 grid on;
 xlabel('旋转角度/(°)');
 ylabel('NC & TAF');
-legend('NC (robust seal)', 'TAF (robust seal)', 'NC (semifragile seal)', 'TAF (semifragile seal)');
+legend('NC (鲁棒水印)', 'TAF (鲁棒水印)', 'NC (半脆弱水印)', 'TAF (半脆弱水印)', 'Location','best');
 saveas(gcf, 'test/rotate', 'svg');
 
 % 生成示例图
-t = 30;
+t = 0.3;
 tmp = imrotate(I_original, t, 'bilinear', 'crop');
 imwrite(tmp, ['test/lena_rotate', num2str(t), '.bmp']);
 [robust_seal, semifragile_seal] = dec_func(tmp);
@@ -94,7 +94,7 @@ plot(x, TAF_f, '-.');hold on;
 grid on;
 xlabel('噪声方差');
 ylabel('NC & TAF');
-legend('NC (robust seal)', 'TAF (robust seal)', 'NC (semifragile seal)', 'TAF (semifragile seal)', 'Location','best');
+legend('NC (鲁棒水印)', 'TAF (鲁棒水印)', 'NC (半脆弱水印)', 'TAF (半脆弱水印)', 'Location','best');
 saveas(gcf, 'test/gaussian', 'svg');
 
 % 生成示例图
@@ -169,7 +169,7 @@ plot(x, TAF_f, '-.');hold on;
 grid on;
 xlabel('滤波器尺寸');
 ylabel('NC & TAF');
-legend('NC (robust seal)', 'TAF (robust seal)', 'NC (semifragile seal)', 'TAF (semifragile seal)', 'Location','best');
+legend('NC (鲁棒水印)', 'TAF (鲁棒水印)', 'NC (半脆弱水印)', 'TAF (半脆弱水印)', 'Location','best');
 saveas(gcf, 'test/medfilt', 'svg');
 
 % 生成示例图
@@ -206,7 +206,7 @@ plot(x, TAF_f, '-.');hold on;
 grid on;
 xlabel('质量因子');
 ylabel('NC & TAF');
-legend('NC (robust seal)', 'TAF (robust seal)', 'NC (semifragile seal)', 'TAF (semifragile seal)', 'Location','best');
+legend('NC (鲁棒水印)', 'TAF (鲁棒水印)', 'NC (半脆弱水印)', 'TAF (半脆弱水印)', 'Location','best');
 saveas(gcf, 'test/compressed', 'svg');
 
 % 生成示例图
@@ -252,7 +252,7 @@ plot(x, TAF_f, '-.');hold on;
 grid on;
 xlabel('比例');
 ylabel('NC & TAF');
-legend('NC (robust seal)', 'TAF (robust seal)', 'NC (semifragile seal)', 'TAF (semifragile seal)', 'Location','best');
+legend('NC (鲁棒水印)', 'TAF (鲁棒水印)', 'NC (半脆弱水印)', 'TAF (半脆弱水印)', 'Location','best');
 saveas(gcf, 'test/paste1', 'svg');
 
 % 生成示例图
@@ -312,7 +312,7 @@ imwrite(robust_seal, ['test/robust_seal_paste2_', num2str(t*2), '.bmp']);
 imwrite(semifragile_seal, ['test/semifragile_seal_paste2_', num2str(t*2), '.bmp']);
 
 
-%% 剪切
+%% 剪切 (shear)
 
 for t = 0:50
     tform = affine2d([1 0 0; t*0.02 1 0; 0 0 1]);
@@ -335,7 +335,7 @@ plot(x, TAF_f, '-.');hold on;
 grid on;
 xlabel('剪切强度');
 ylabel('NC & TAF');
-legend('NC (robust seal)', 'TAF (robust seal)', 'NC (semifragile seal)', 'TAF (semifragile seal)', 'Location','best');
+legend('NC (鲁棒水印)', 'TAF (鲁棒水印)', 'NC (半脆弱水印)', 'TAF (半脆弱水印)', 'Location','best');
 saveas(gcf, 'test/shear', 'svg');
 
 % 生成示例图
@@ -348,6 +348,48 @@ imwrite(tmp, ['test/lena_shear', num2str(t), '.bmp']);
 [robust_seal, semifragile_seal] = dec_func(tmp);
 imwrite(robust_seal, ['test/robust_seal_shear', num2str(t), '.bmp']);
 imwrite(semifragile_seal, ['test/semifragile_shear', num2str(t), '.bmp']);
+
+
+%% 剪切 (crop)
+
+NC_r(1) = 1;
+NC_f(1) = 1;
+TAF_r(1) = 0;
+TAF_f(1) = 0;
+
+s = size(I_original);
+w = s(1) - mod(s(1), 50);
+h = s(2);
+for t = 1:50
+    tmp = I_original;
+    tmp(1:w/50*t, :, :) = 0;
+    
+    [robust_seal, semifragile_seal] = dec_func(tmp);
+    NC_r(t+1) = nc(I_zero_robust_seal, robust_seal);
+    TAF_r(t+1) = TAF(I_zero_robust_seal, robust_seal);
+    NC_f(t+1) = nc(I_semifragile_seal, semifragile_seal);
+    TAF_f(t+1) = TAF(I_semifragile_seal, semifragile_seal);
+end
+
+x = linspace(0, 100, 51);
+plot(x, NC_r, '-o');hold on;
+plot(x, TAF_r, '-');hold on;
+plot(x, NC_f, '-+');hold on;
+plot(x, TAF_f, '-.');hold on;
+grid on;
+xlabel('比例');
+ylabel('NC & TAF');
+legend('NC (robust seal)', 'TAF (robust seal)', 'NC (semifragile seal)', 'TAF (semifragile seal)', 'Location','best');
+saveas(gcf, 'test/crop', 'svg');
+
+% 生成示例图
+t = 45;
+tmp = I_original;
+tmp(1:w/50*t, :, :) = 0;
+imwrite(tmp, ['test/lena_crop', num2str(t*2), '.bmp']);
+[robust_seal, semifragile_seal] = dec_func(tmp);
+imwrite(robust_seal, ['test/robust_seal_crop', num2str(t*2), '.bmp']);
+imwrite(semifragile_seal, ['test/semifragile_seal_crop', num2str(t*2), '.bmp']);
 
 
 %% 其他测试
