@@ -1,7 +1,7 @@
 D:
-cd D:\ProgramData\Anaconda3\Scripts
-call activate tensorflow
+cd D:\Anaconda3\Scripts
+call activate tensorflow-gpu
 C:
-cd C:\Users\Administrator\Desktop\project103\Zero-Watermarking\QCNN_DQN_PlanA
+cd C:\Users\panpy\Desktop\project103\Zero-Watermarking\QCNN_DQN_PlanA
 python decryption_net.py
 

@@ -50,6 +50,7 @@ load('tmp/test_meddle_layer.mat');
 
 F = reshape(F, [], 36);
 
+% ************************ F&G plan A ****************************%
 % for i = 1:36
 %     for j = 1:36
 %         G(i, j) = sum(F((i-1)*100+(1:100), j))/100;
@@ -61,13 +62,26 @@ F = reshape(F, [], 36);
 %     end
 % end
 
-for j = 1:36
-    F_avg(j) = mean(F(1:100, j));
-end
+% ************************ F&G plan B ****************************%
+% for j = 1:36
+%     F_avg(j) = mean(F(1:100, j));
+% end
+% 
+% for i = 1:36
+%     for j = 1:36
+%         if F(50, j) > F_avg(i)
+%             G(i, j) = 1;
+%         else
+%             G(i, j) = 0;
+%         end
+%     end
+% end
 
+% ************************ F&G plan C ****************************%
 for i = 1:36
     for j = 1:36
-        if F(50, j) > F_avg(i)
+        G(i, j) = sum(F((i-1)*100+(1:100), j))/100;
+        if F(50, j) > G(i, j)
             G(i, j) = 1;
         else
             G(i, j) = 0;

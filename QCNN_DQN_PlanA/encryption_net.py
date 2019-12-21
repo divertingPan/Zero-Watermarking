@@ -1,7 +1,6 @@
 import keras
 from keras.models import Model
-from keras.models import Sequential
-from keras.layers import Dense, AveragePooling2D, Flatten, Input, Activation, Convolution2D, concatenate
+from keras.layers import Dense, AveragePooling2D, Flatten, Input, Convolution2D, concatenate
 from quaternion_layers.conv import QuaternionConv2D
 from keras.preprocessing.image import ImageDataGenerator
 import scipy.io as scio
@@ -12,10 +11,12 @@ batch_size = 128
 num_classes = 36
 epochs = 1000
 
+
 def learnVectorBlock(I):
     """Learn initial vector component for input."""
     O = Convolution2D(1, (5, 5), padding='same', activation='relu')(I)
     return O
+
 
 # input image dimensions
 img_rows, img_cols = 64, 64
@@ -75,7 +76,7 @@ O = Dense(num_classes, activation='softmax')(O)
 
 model = Model(R, O)
 model.compile(loss=keras.losses.categorical_crossentropy,
-              optimizer=keras.optimizers.Adam(),
+              optimizer=keras.optimizers.Adam(lr=0.001, decay=0.99),
               metrics=['accuracy'])
 
 model.fit_generator(datagen.flow(x_train, y_train, batch_size=batch_size),
@@ -88,4 +89,4 @@ model.save_weights('encryption/model.h5')
 med_model = Model(inputs=model.input, outputs=model.layers[8].output)
 med_output = med_model.predict(x_train)
 
-scio.savemat('tmp/meddle_layer.mat', {'F':med_output})
+scio.savemat('tmp/meddle_layer.mat', {'F': med_output})
