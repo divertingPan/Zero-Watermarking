@@ -6,11 +6,9 @@ from quaternion_layers.conv import QuaternionConv2D
 from keras.preprocessing.image import ImageDataGenerator
 import scipy.io as scio
 import numpy as np
- 
 
-batch_size = 36
+
 num_classes = 36
-epochs = 50
 
 # input image dimensions
 img_rows, img_cols = 64, 64
@@ -60,4 +58,4 @@ model.load_weights('encryption/model.h5')
 model = Model(inputs=model.input, outputs=model.layers[8].output)
 med_output = model.predict(x_test)
 
-scio.savemat('tmp/test_meddle_layer.mat', {'F':med_output})
+scio.savemat('tmp/test_meddle_layer.mat', {'F': med_output})
