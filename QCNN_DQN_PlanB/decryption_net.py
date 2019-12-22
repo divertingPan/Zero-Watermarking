@@ -1,13 +1,12 @@
 import keras
 from keras.models import Model
-from keras.models import Sequential
 from keras.layers import Dense, AveragePooling2D, Flatten, Input, Activation, Convolution2D, concatenate
 from quaternion_layers.conv import QuaternionConv2D
 from quaternion_layers.bn import QuaternionBatchNormalization
 from keras.preprocessing.image import ImageDataGenerator
 import scipy.io as scio
 import numpy as np
- 
+
 
 num_classes = 36
 
@@ -61,3 +60,4 @@ model = Model(inputs=model.input, outputs=model.layers[13].output)
 med_output = model.predict(x_test)
 
 scio.savemat('tmp/test_meddle_layer.mat', {'F': med_output})
+print('==========> Done! <==========')

@@ -17,8 +17,10 @@ X = USV;
 
 save('tmp/test_input.mat', 'X');
 
-[~, ~] = dos('QCNN_decrypt.bat');
-
+[status, cmdout] = dos('QCNN_decrypt.bat');
+if status == 0
+    disp('predicting QCNN done!');
+end
 load('tmp/test_meddle_layer.mat');
 
 F = reshape(F, [], 36);
