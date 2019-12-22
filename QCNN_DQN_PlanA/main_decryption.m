@@ -30,11 +30,6 @@ disp('finish svd');
 
 X = USV;
 
-X_size = size(X);
-for tmp = 1:36
-    T(tmp) = sum(X(:,tmp,1)) / (X_size(1)*X_size(2));
-end
-
 save('tmp/test_input.mat', 'X');
 
 %% QCNNΩ‚√‹
