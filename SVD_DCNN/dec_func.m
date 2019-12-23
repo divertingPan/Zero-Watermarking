@@ -65,7 +65,7 @@ F = reshape(F, [], 36);
 for i = 1:36
     for j = 1:36
         G(i, j) = sum(F((i-1)*100+(1:100), j))/100;
-        if F(50, j) > G(i, j)
+        if F(50, j) < G(i, j)
             G(i, j) = 1;
         else
             G(i, j) = 0;
