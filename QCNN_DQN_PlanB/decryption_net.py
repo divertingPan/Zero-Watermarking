@@ -6,7 +6,9 @@ from quaternion_layers.bn import QuaternionBatchNormalization
 from keras.preprocessing.image import ImageDataGenerator
 import scipy.io as scio
 import numpy as np
+import os
 
+os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
 
 num_classes = 36
 
