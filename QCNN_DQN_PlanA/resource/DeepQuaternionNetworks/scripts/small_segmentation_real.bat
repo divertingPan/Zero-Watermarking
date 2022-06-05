@@ -1,1 +1,0 @@
-python ../runner.py "segmentation" --mode "real" -sf 32 -init "he_normal"
