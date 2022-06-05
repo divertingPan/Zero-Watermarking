@@ -1,35 +1,27 @@
 # Zero-Watermarking
+
+
+太久远的项目了。根据我依稀的记忆，整理内容指示如下：
+
+Env: MATLAB R2018b
  
-## SVD_DCNN相关issue：
+## CNN_robust_encrypt & decrypt, and SVD_frag_encrypt & decrypt:：
 
-环境：MATLAB R2018b
+My implementary of article "基于SVD和DCNN的彩色图像多功能零水印算法" ([doi: 10.6040/j.issn.1672-3961.0.2017.408](https://doi.org/10.6040/j.issn.1672-3961.0.2017.408))
 
-两个main是加密解密的主程序
+The authors merge fragile and robust zero-watermarking into one pipeline, and I seperately code them. 
 
-主要用的图片在img内
+作者把零鲁棒水印和零脆弱水印的生成整合到一起，但是我复现的时候给他分别复现的。
 
-encryption和decryption里是加密解密结果
 
-用processsor.m生成攻击测试图片，保存在test内
+## BP_robust_encrypt & decrypt：
 
-issue：
+My implementary of dissertation "基于神经网络的数字水印算法的研究与实现" (https://kns.cnki.net/KCMS/detail/detail.aspx?dbname=CMFD2012&filename=1012320029.nh)
 
-评估使用不同测试图片，对应结果的NC和TAF，看一看和论文的结果差多少。
-这个目前差不多了，使用了一些新的办法，等等作者怎么回复我的邮件。
 
-把图片整个换掉，鲁棒水印也不变（虚警率高，考虑从此切入，也可能比较难搞）
 
-## QCNN
+## Bit_frag_encrypt & decrypt:
 
-已经设计了新的实验流程
+My implementary of article "Commutative fragile zero-watermarking and encryption for image integrity protection" ([doi: 10.6040/j.issn.1672-3961.0.2017.408](https://doi.org/10.1007/s11042-019-7560-1))
 
-先做简单的Plan A，测试一下数据效果变化，计划12月21号搞定（虚警率非常高，不知道好不好搞）
 
-再做一下Plan B。计划12月31日完成
-
-## BP
-
-顺手复现了一下，也不知道具体细节对不对。
-关于切割图片选子图的步骤，我是按照QCNN plan B的思路做的。刚好在这边可以复用一下。
-原作者意思是在选子图有个混沌置乱方法去选，我懒得弄了，反正即使这样，原图恢复水印也还是有瑕疵。
-疑惑，十分怀疑原作偷偷改数据了。。。。
