@@ -1,7 +1,7 @@
 # Zero-Watermarking
 
 
-太久远的项目了。根据我依稀的记忆，整理内容指示如下：
+太久远的项目了。根据我依稀的记忆，整理代码情况如下：
 
 Env: MATLAB R2018b
  
@@ -11,7 +11,7 @@ My implementation of the article "基于SVD和DCNN的彩色图像多功能零水
 
 The authors merged fragile and robust zero-watermarking into one pipeline, and I separately coded them. 
 
-作者把零鲁棒水印和零脆弱水印的生成整合到一起，但是我复现的时候给他分别复现的。
+作者把零鲁棒水印和零脆弱水印的加解密过程整合到了一起，但是我复现的时候给他分别复现的。
 
 
 ## BP_robust_encrypt & decrypt：
